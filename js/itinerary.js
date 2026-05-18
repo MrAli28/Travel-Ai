@@ -143,14 +143,14 @@
     var systemPrompt = 'You are a professional travel planner AI. '
       + 'Generate a highly detailed day-by-day travel itinerary for the destination. '
       + 'You MUST return ONLY a valid JSON object matching the exact schema below, with no markdown code blocks, no trailing text, and no explanations. '
-      + 'Keep every string short and do not use quotes inside string values unless escaped correctly. '
+      + 'Make the descriptions highly descriptive, narrative, and detailed. Do not use double quotes inside string values unless escaped correctly. '
       + 'The JSON schema to follow is: '
       + '{'
       + '  "destination": "City Name",'
       + '  "country": "Country Name",'
       + '  "duration": ' + days + ','
       + '  "theme": "' + style + '",'
-      + '  "summary": "A brief, exciting 2-3 sentence overview of the trip.",'
+      + '  "summary": "A rich, exciting 3-4 sentence overview of the trip.",'
       + '  "bestTime": "Best season or months to visit",'
       + '  "currency": "Local currency (e.g. USD, EUR, JPY)",'
       + '  "tips": ["Tip 1", "Tip 2", "Tip 3"],'
@@ -158,9 +158,9 @@
       + '    {'
       + '      "day": 1,'
       + '      "title": "Day 1 Theme/Title",'
-      + '      "morning": { "place": "Name of Attraction", "activity": "Exciting description of what to do there.", "duration": "Duration (e.g. 2-3 hours)", "tip": "Expert local tip.", "type": "attraction" },'
-      + '      "afternoon": { "place": "Name of Place", "activity": "Activity description.", "duration": "Duration", "tip": "Local tip.", "type": "restaurant" },'
-      + '      "evening": { "place": "Name of Place", "activity": "Activity description.", "duration": "Duration", "tip": "Local tip.", "type": "attraction" }'
+      + '      "morning": { "place": "Name of Attraction", "activity": "Rich, step-by-step detailed journey description.", "duration": "Duration (e.g. 2-3 hours)", "tip": "Expert local tip.", "type": "attraction" },'
+      + '      "afternoon": { "place": "Name of Place", "activity": "Detailed activity and dining/rest transitions.", "duration": "Duration", "tip": "Local tip.", "type": "restaurant" },'
+      + '      "evening": { "place": "Name of Place", "activity": "Immersive evening narrative description.", "duration": "Duration", "tip": "Local tip.", "type": "attraction" }'
       + '    }'
       + '  ]'
       + '}';
@@ -173,7 +173,7 @@
     // Ask the model to include nearby restaurants and a recommended hotel
     userPrompt += ' IMPORTANT: For each day, include 2 nearby restaurants and 1 recommended hotel. '
       + 'Return these extra suggestions either inside each day ("restaurants" and "hotels") or as a top-level "recommendations" array. '
-      + 'Keep every description brief (max 12-18 words). '
+      + 'Make each description rich, engaging, and highly detailed (approx. 25-45 words). Feel free to use transition arrows (e.g., A → B → C) to show a step-by-step journey flow for each time slot (Morning, Afternoon, Evening) to outline full transitions, local transport notes, and dining stops! '
       + 'Provide coordinates when possible and include source URLs (OpenTripMap, OpenStreetMap, Wikipedia) for verification.';
 
     // Strong instruction to verify places using OpenTripMap and OpenStreetMap
@@ -258,12 +258,28 @@
 
     // Helper: try to repair a few common JSON mistakes from model output
     function simpleRepairJson(str) {
-      return String(str)
+      var repaired = String(str)
         // remove trailing commas before closing braces/brackets
         .replace(/,\s*([}\]])/g, '$1')
         // turn raw new lines into \n inside strings is hard; this only helps when model inserted line breaks between tokens
         .replace(/"\s*\n\s*"/g, '"')
         .replace(/\n{3,}/g, '\n\n');
+
+      // Replace actual newlines inside double quotes with escaped \n
+      var inString = false;
+      var charArray = repaired.split('');
+      for (var i = 0; i < charArray.length; i++) {
+        if (charArray[i] === '"' && (i === 0 || charArray[i - 1] !== '\\')) {
+          inString = !inString;
+        }
+        if (inString && charArray[i] === '\n') {
+          charArray[i] = '\\n';
+        }
+        if (inString && charArray[i] === '\r') {
+          charArray[i] = '';
+        }
+      }
+      return charArray.join('');
     }
 
     // Attempt multiple parsing strategies
