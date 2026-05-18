@@ -1,0 +1,7 @@
+# Local configuration containing sensitive API keys
+js/config.js
+
+# IDE and OS files
+.vscode/
+.DS_Store
+Thumbs.db

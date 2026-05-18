@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destinations | TravelAI</title>
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<nav class="navbar glass">
+  <div class="container">
+    <div class="navbar-inner">
+      <a class="brand" href="index.html">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+        </div>
+        <span class="brand-text text-gradient-ocean">TravelAI</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="destinations.html" class="nav-link active">Destinations</a>
+        <a href="itinerary.html" class="nav-link nav-link-emphasis">✨ AI Planner</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <div class="nav-auth">
+        <button class="btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Login
+        </button>
+        <button class="btn-gradient">Sign Up</button>
+      </div>
+
+      <button class="nav-toggle" type="button" aria-label="Open menu" data-nav-toggle>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="nav-mobile" data-nav-panel>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="destinations.html" class="nav-link active">Destinations</a>
+      <a href="itinerary.html" class="nav-link nav-link-emphasis">✨ AI Planner</a>
+      <a href="features.html" class="nav-link">Features</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <div class="nav-mobile-auth">
+        <button class="btn-outline">Login</button>
+        <button class="btn-gradient">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero destinations-hero" id="top">
+  <div class="container">
+    <h1>Explore Beautiful <span class="text-gradient-ocean">Destinations</span></h1>
+    <p>Mountains, beaches, cities, and history — find your perfect escape.</p>
+    <a class="btn-gradient" href="#filter-start" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.25rem;">
+      Explore Now
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+    </a>
+  </div>
+</header>
+
+<section class="section section-white" id="destinations" style="padding-top: 2rem;">
+  <div class="container">
+    <div class="dest-filter" id="filter-start" data-dest-filter style="margin-top: 1rem;">
+      <button class="filter-chip is-active" type="button" data-filter="all"><i class="fa-solid fa-compass"></i>All</button>
+      <button class="filter-chip" type="button" data-filter="mountains"><i class="fa-solid fa-mountain"></i>Mountains</button>
+      <button class="filter-chip" type="button" data-filter="beaches"><i class="fa-solid fa-umbrella-beach"></i>Beaches</button>
+      <button class="filter-chip" type="button" data-filter="cities"><i class="fa-solid fa-city"></i>Cities</button>
+      <button class="filter-chip" type="button" data-filter="historical"><i class="fa-solid fa-landmark"></i>Historical</button>
+    </div>
+
+    <div class="destinations-grid" data-dest-grid>
+      <article class="travel-card dest-card reveal" data-category="cities">
+        <div class="dest-card-media">
+          <img src="assests/paris.jpg" alt="Paris" />
+        </div>
+        <div class="dest-card-body">
+          <h3>Paris, France</h3>
+          <p>Iconic streets, world-class cuisine, and romantic sunsets by the Seine — a timeless city experience.</p>
+          <button class="btn-outline" type="button" data-view-details 
+            data-title="Paris, France" 
+            data-desc="Paris, often called the 'City of Light', is famous for its iconic Eiffel Tower and charming cafes." 
+            data-img="assests/paris.jpg"
+            data-price="$899"
+            data-attractions="Eiffel Tower, Louvre Museum, Seine River, Notre-Dame"
+            data-itinerary="Day 1: Arrival & Eiffel Tower Visit|Day 2: Louvre Museum & Seine Cruise|Day 3: Montmartre Exploration">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="travel-card dest-card reveal" data-category="beaches">
+        <div class="dest-card-media">
+          <img src="assests/bali.jpg" alt="Bali" />
+        </div>
+        <div class="dest-card-body">
+          <h3>Bali, Indonesia</h3>
+          <p>Warm beaches, lush rice terraces, and unforgettable sunsets — the perfect mix of relaxation and adventure.</p>
+          <button class="btn-outline" type="button" data-view-details 
+            data-title="Bali, Indonesia" 
+            data-desc="Bali is a tropical paradise known for its volcanic mountains and iconic rice paddies." 
+            data-img="assests/bali.jpg"
+            data-price="$649"
+            data-attractions="Uluwatu Temple, Tegalalang Rice Terrace, Sacred Monkey Forest, Kuta Beach"
+            data-itinerary="Day 1: Beach Relaxation|Day 2: Temple & Culture Tour|Day 3: Ubud Nature Walk">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="travel-card dest-card reveal" data-category="mountains">
+        <div class="dest-card-media">
+          <img src="assests/swiss.jpg" alt="Swiss Alps" />
+        </div>
+        <div class="dest-card-body">
+          <h3>Swiss Alps</h3>
+          <p>Snowy peaks, scenic trains, and postcard villages — a dream destination for nature lovers and hikers.</p>
+          <button class="btn-outline" type="button" data-view-details 
+            data-title="Swiss Alps" 
+            data-desc="The Swiss Alps offer some of the most stunning mountain scenery in the world, perfect for adventure seekers." 
+            data-img="assests/swiss.jpg"
+            data-price="$1,299"
+            data-attractions="Zermatt, Matterhorn, Jungfraujoch, Interlaken"
+            data-itinerary="Day 1: Arrival in Zermatt|Day 2: Matterhorn Viewpoint|Day 3: Scenic Train Ride">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="travel-card dest-card reveal" data-category="beaches">
+        <div class="dest-card-media">
+          <img src="assests/mali.jpg" alt="Maldives" />
+        </div>
+        <div class="dest-card-body">
+          <h3>Maldives</h3>
+          <p>Crystal-clear waters, overwater villas, and calm lagoons — the ultimate luxury beach escape.</p>
+          <button class="btn-outline" type="button" data-view-details 
+            data-title="Maldives" 
+            data-desc="The Maldives is famous for its crystal-clear turquoise waters and luxurious overwater bungalows." 
+            data-img="assests/mali.jpg"
+            data-price="$1,899"
+            data-attractions="Private Islands, Coral Reefs, Undersea Restaurants, Sandbars"
+            data-itinerary="Day 1: Speedboat Transfer|Day 2: Snorkeling & Diving|Day 3: Sunset Cruise">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="travel-card dest-card reveal" data-category="historical">
+        <div class="dest-card-media">
+          <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=900&q=80" alt="Rome" />
+        </div>
+        <div class="dest-card-body">
+          <h3>Rome, Italy</h3>
+          <p>Ancient ruins, art, and culture at every corner — step into history with modern Italian charm.</p>
+          <button class="btn-outline" type="button" data-view-details 
+            data-title="Rome, Italy" 
+            data-desc="Rome, Italy’s capital, is a sprawling, cosmopolitan city with nearly 3,000 years of globally influential art, architecture and culture on display." 
+            data-img="https://images.unsplash.com/photo-1548013146-72479768bada?w=900&q=80"
+            data-price="$950"
+            data-attractions="Colosseum, Vatican Museums, Trevi Fountain, Pantheon"
+            data-itinerary="Day 1: Ancient Rome Tour|Day 2: Vatican City & Art|Day 3: Trastevere Food Walk">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="travel-card dest-card reveal" data-category="cities">
+        <div class="dest-card-media">
+          <img src="https://images.unsplash.com/photo-1526495124232-a04e1849168c?w=900&q=80" alt="Dubai" />
+        </div>
+        <div class="dest-card-body">
+          <h3>Dubai, UAE</h3>
+          <p>Skyline views, desert adventures, and premium shopping — a modern city built for unforgettable trips.</p>
+          <button class="btn-outline" type="button" data-view-details 
+            data-title="Dubai, UAE" 
+            data-desc="Dubai is a city and emirate in the United Arab Emirates luxury shopping, ultramodern architecture and a lively nightlife scene." 
+            data-img="https://images.unsplash.com/photo-1526495124232-a04e1849168c?w=900&q=80"
+            data-price="$1,100"
+            data-attractions="Burj Khalifa, Dubai Mall, Palm Jumeirah, Desert Safari"
+            data-itinerary="Day 1: Skyline & Mall Visit|Day 2: Desert Safari & BBQ|Day 3: Beach & Marina Dinner">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="travel-card dest-card reveal" data-category="historical">
+        <div class="dest-card-media">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&q=80" alt="Kyoto" />
+        </div>
+        <div class="dest-card-body">
+          <h3>Kyoto, Japan</h3>
+          <p>Temples, gardens, and traditional streets — a cultural journey through Japan’s historic heart.</p>
+          <button class="btn-outline" type="button" data-view-details 
+            data-title="Kyoto, Japan" 
+            data-desc="Kyoto, once the capital of Japan, is famous for its numerous classical Buddhist temples, gardens, and traditional wooden houses." 
+            data-img="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&q=80"
+            data-price="$1,250"
+            data-attractions="Fushimi Inari-taisha, Kinkaku-ji, Gion District, Arashiyama Bamboo Grove"
+            data-itinerary="Day 1: Temple & Shrine Tour|Day 2: Bamboo Forest & River|Day 3: Gion Culture & Tea">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="travel-card dest-card reveal" data-category="mountains">
+        <div class="dest-card-media">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80" alt="Iceland" />
+        </div>
+        <div class="dest-card-body">
+          <h3>Reykjavik, Iceland</h3>
+          <p>Glaciers, waterfalls, and northern lights — a once-in-a-lifetime adventure across dramatic landscapes.</p>
+          <button class="btn-outline" type="button" data-view-details 
+            data-title="Reykjavik, Iceland" 
+            data-desc="Reykjavik, on the coast of Iceland, is home to the National and Saga museums, tracing Iceland’s Viking history." 
+            data-img="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80"
+            data-price="$1,400"
+            data-attractions="Blue Lagoon, Golden Circle, Hallgrimskirkja, Northern Lights"
+            data-itinerary="Day 1: Arrival & Blue Lagoon|Day 2: Golden Circle Tour|Day 3: Northern Lights Hunt">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-sky" id="popular">
+  <div class="container">
+    <div class="section-header">
+      <span class="travel-badge">Popular</span>
+      <h2>Popular <span class="text-gradient-ocean">Destinations</span></h2>
+      <p>Top picks loved by travelers — curated for amazing views and unforgettable memories.</p>
+    </div>
+
+    <div class="popular-row" data-popular-row>
+      <div class="popular-card reveal" data-view-details 
+        data-title="Santorini, Greece" 
+        data-desc="Santorini is one of the Cyclades islands in the Aegean Sea. It was devastated by a volcanic eruption in the 16th century BC, forever shaping its rugged landscape."
+        data-img="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=900&q=80"
+        data-price="$1,150"
+        data-attractions="Oia Sunsets, Red Beach, Akrotiri, Fira"
+        data-itinerary="Day 1: Arrival & Oia Sunset|Day 2: Boat Tour & Volcanic Springs|Day 3: Beach Relaxation">
+        <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=900&q=80" alt="Santorini" />
+        <div class="popular-card-info">
+          <h3>Santorini</h3>
+          <p>Beaches</p>
+        </div>
+      </div>
+      <div class="popular-card reveal" data-view-details
+        data-title="Banff, Canada" 
+        data-desc="Banff National Park is Canada's oldest national park, located in the heart of the majestic Rocky Mountains."
+        data-img="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=900&q=80"
+        data-price="$980"
+        data-attractions="Lake Louise, Moraine Lake, Banff Upper Hot Springs, Sulphur Mountain"
+        data-itinerary="Day 1: Lake Louise Visit|Day 2: Icefields Parkway Drive|Day 3: Banff Village & Hot Springs">
+        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=900&q=80" alt="Banff" />
+        <div class="popular-card-info">
+          <h3>Banff</h3>
+          <p>Mountains</p>
+        </div>
+      </div>
+      <div class="popular-card reveal" data-view-details
+        data-title="Venice, Italy" 
+        data-desc="Venice, the capital of northern Italy’s Veneto region, is built on more than 100 small islands in a lagoon in the Adriatic Sea."
+        data-img="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=80"
+        data-price="$870"
+        data-attractions="St. Mark's Basilica, Grand Canal, Rialto Bridge, Doge's Palace"
+        data-itinerary="Day 1: Gondola Ride & St. Marks|Day 2: Murano & Burano Islands|Day 3: Cannaregio Food Tour">
+        <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=80" alt="Venice" />
+        <div class="popular-card-info">
+          <h3>Venice</h3>
+          <p>Historical</p>
+        </div>
+      </div>
+      <div class="popular-card reveal" data-view-details
+        data-title="New York, USA" 
+        data-desc="New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is Manhattan, a densely populated borough that’s among the world’s major commercial, financial and cultural centers."
+        data-img="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?w=900&q=80"
+        data-price="$1,450"
+        data-attractions="Statue of Liberty, Central Park, Empire State Building, Times Square"
+        data-itinerary="Day 1: Midtown Highlights|Day 2: Central Park & Museums|Day 3: Brooklyn Bridge & Downtown">
+        <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?w=900&q=80" alt="New York" />
+        <div class="popular-card-info">
+          <h3>New York</h3>
+          <p>Cities</p>
+        </div>
+      </div>
+      <div class="popular-card reveal" data-view-details
+        data-title="Bora Bora, French Polynesia" 
+        data-desc="Bora Bora is a small South Pacific island northwest of Tahiti in French Polynesia. It's a popular luxury resort destination where some guest bungalows are perched over the water on stilts."
+        data-img="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=900&q=80"
+        data-price="$2,200"
+        data-attractions="Matira Beach, Mount Otemanu, Coral Gardens, Leopard Rays Trench"
+        data-itinerary="Day 1: Bungalow Check-in|Day 2: Lagoon Snorkeling Tour|Day 3: Matira Beach Sunset">
+        <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=900&q=80" alt="Bora Bora" />
+        <div class="popular-card-info">
+          <h3>Bora Bora</h3>
+          <p>Beaches</p>
+        </div>
+      </div>
+      <div class="popular-card reveal" data-view-details
+        data-title="Tokyo, Japan" 
+        data-desc="Tokyo, Japan’s busy capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples."
+        data-img="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=900&q=80"
+        data-price="$1,300"
+        data-attractions="Shibuya Crossing, Senso-ji Temple, Tokyo Skytree, Meiji Jingu"
+        data-itinerary="Day 1: Modern Tokyo (Shibuya/Shinjuku)|Day 2: Cultural Heritage (Asakusa)|Day 3: Harajuku & Omotesando">
+        <img src="assests/tokyu.jfif" alt="Tokyo" />
+        <div class="popular-card-info">
+          <h3>Tokyo</h3>
+          <p>Cities</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-sand" id="why-visit">
+  <div class="container">
+    <div class="section-header">
+      <span class="travel-badge">Why Visit</span>
+      <h2>Why Choose <span class="text-gradient-ocean">These Places</span></h2>
+      <p>Every destination is selected for its beauty, experience, and traveler-friendly value.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="travel-card why-card reveal">
+        <div class="why-icon"><i class="fa-solid fa-mountain"></i></div>
+        <h3>Natural Beauty</h3>
+        <p>Scenic views and breathtaking landscapes for the perfect photo moments.</p>
+      </div>
+      <div class="travel-card why-card reveal">
+        <div class="why-icon"><i class="fa-solid fa-person-hiking"></i></div>
+        <h3>Adventure</h3>
+        <p>From hiking and diving to city nightlife — there’s something for everyone.</p>
+      </div>
+      <div class="travel-card why-card reveal">
+        <div class="why-icon"><i class="fa-solid fa-wallet"></i></div>
+        <h3>Affordable</h3>
+        <p>Curated options across different budgets so you can travel smarter.</p>
+      </div>
+      <div class="travel-card why-card reveal">
+        <div class="why-icon"><i class="fa-solid fa-landmark"></i></div>
+        <h3>Culture</h3>
+        <p>Discover stories, traditions, and authentic local experiences.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cta-modern" id="plan-trip">
+  <div class="container">
+    <div class="cta-modern-box reveal">
+      <div class="cta-modern-content">
+        <span class="travel-badge">Ready to Go?</span>
+        <h2>Plan Your Trip <span class="text-gradient-ocean">Now</span></h2>
+        <p>Tell us what you love and we’ll help you build a perfect itinerary — fast, simple, and beautiful. Your dream vacation is just a click away.</p>
+        <div class="cta-btns">
+          <a class="btn-gradient" href="booking.html">Book Now</a>
+          <a class="btn-ghost" href="contact.html">Contact Agent <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </div>
+      <div class="cta-modern-visual">
+        <img src="assests/trip plan.jpg" alt="Travel Planning" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <div class="brand-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div>
+          <span class="brand-text">TravelAI</span>
+        </a>
+        <p>Your AI-powered travel companion. Discover amazing destinations and plan your perfect trip with intelligent recommendations.</p>
+        <div class="footer-social">
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.56-2.005.97-3.14 1.2a4.992 4.992 0 00-8.51 4.555c0 .39.045.765.127 1.124C7.728 9.215 4.1 7.33 1.671 4.149a4.968 4.968 0 00-.675 2.507c0 1.728.88 3.252 2.213 4.15a4.94 4.94 0 01-2.253-.622v.06a4.993 4.993 0 004 4.897 4.93 4.93 0 01-2.244.084 4.996 4.996 0 004.652 3.465 10.029 10.029 0 01-6.186 2.131c-.398 0-.79-.023-1.175-.069a14.16 14.16 0 007.65 2.243c9.18 0 14.199-7.603 14.199-14.199 0-.216-.005-.432-.015-.647A10.14 10.14 0 0024 4.57z"/></svg></a>
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg></a>
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        </div>
+      </div>
+      <div><h4>Quick Links</h4><ul><li><a href="destinations.html">Destinations</a></li><li><a href="features.html">Features</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Support</h4><ul>
+          <li><a href="help.html">Help Center</a></li>
+          <li><a href="safety.html">Safety Information</a></li>
+          <li><a href="cancellation.html">Cancellation Options</a></li>
+          <li><a href="advisory.html">Travel Advisory</a></li></ul></div>
+      <div><h4>Contact Us</h4><ul class="footer-contact"><li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>123 Travel Street, Adventure City</span></li><li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+1 (555) 123-4567</span></li><li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>hello@travelai.com</span></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span data-year></span> TravelAI. All rights reserved.</p>
+      <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button class="chat-fab" data-chat-open>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+</button>
+
+<!-- DESTINATION MODAL -->
+<div class="modal-overlay" data-dest-modal>
+  <div class="modal-window">
+    <button class="modal-close" data-dest-modal-close><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    <div class="modal-media">
+      <img src="" alt="" data-modal-img />
+    </div>
+    <div class="modal-content">
+      <div class="modal-body-scroll">
+        <div class="modal-header">
+          <h2 data-modal-title></h2>
+          <div class="modal-price-tag">Ticket: <span data-modal-price></span></div>
+        </div>
+        
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" data-tab="info">Info</button>
+          <button class="modal-tab-btn" data-tab="itinerary">Itinerary</button>
+          <button class="modal-tab-btn" data-tab="reviews">Reviews</button>
+        </div>
+
+        <div class="modal-tab-content active" data-tab-pane="info">
+          <p data-modal-desc></p>
+          <div class="modal-highlights">
+            <h4>Key Attractions:</h4>
+            <ul data-modal-attractions></ul>
+          </div>
+        </div>
+
+        <div class="modal-tab-content" data-tab-pane="itinerary">
+          <ul class="itinerary-list" data-modal-itinerary></ul>
+        </div>
+
+        <div class="modal-tab-content" data-tab-pane="reviews">
+          <div class="reviews-list" data-modal-reviews></div>
+        </div>
+
+        <div class="modal-actions">
+          <a href="booking.html" class="btn-gradient" style="text-decoration:none; display:inline-block; text-align:center;">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chat-window" data-chat>
+  <div class="chat-head">
+    <div class="chat-head-left">
+      <div class="chat-avatar"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></div>
+      <div><div class="chat-title">TravelAI Assistant</div><div class="chat-status"><span class="dot"></span> Online 24/7</div></div>
+    </div>
+    <button class="chat-close" data-chat-close><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+  </div>
+  <div class="chat-body" data-chat-body></div>
+  <div class="chat-suggestions" data-chat-suggestions>
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> Quick suggestions</p>
+    <div class="chips">
+      <button class="chip" type="button">Recommend a beach destination</button>
+      <button class="chip" type="button">Plan a 7-day Europe trip</button>
+      <button class="chip" type="button">Best time to visit Japan</button>
+      <button class="chip" type="button">Budget travel tips</button>
+    </div>
+  </div>
+  <form class="chat-form" data-chat-form>
+    <input class="chat-input" type="text" placeholder="Ask me anything about travel..." data-chat-input />
+    <button class="chat-send" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="m22 2-11 11"/></svg></button>
+  </form>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
