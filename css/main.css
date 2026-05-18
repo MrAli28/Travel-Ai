@@ -3090,3 +3090,8 @@ section:has(.packages-grid) + .why-choose-section {
 
 /* Chat body scrollbar */
 .chat-body::-webkit-scrollbar { width: 4px; }
+
+/* Hide Login and Sign Up globally */
+.nav-auth, .nav-mobile-auth {
+  display: none !important;
+}
