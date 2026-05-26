@@ -5,3 +5,10 @@ js/config.js
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Local SQLite Database
+travelai.db
+
+# Python caches
+__pycache__/
+*.pyc

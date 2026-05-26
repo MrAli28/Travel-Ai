@@ -165,7 +165,7 @@
       + '  ]'
       + '}';
 
-    var userPrompt = 'Create a ' + days + '-day travel itinerary for ' + city + '. '
+    var userPrompt = 'Create a highly detailed ' + days + '-day travel itinerary for ' + city + '. '
       + 'Travelers: ' + travelers + '. Budget: ' + budget + '. Travel Style: ' + style + '. '
       + 'Make sure all places are REAL, famous, and accurate landmarks or venues in ' + city + '. '
       + 'CRITICAL RULE: DO NOT duplicate any attractions, parks, lakes, or museums across the days. EVERY single place in the morning, afternoon, and evening MUST be completely unique and different from each other. Provide a wide variety of diverse attractions.';
@@ -173,8 +173,9 @@
     // Ask the model to include nearby restaurants and a recommended hotel
     userPrompt += ' IMPORTANT: For each day, include 2 nearby restaurants and 1 recommended hotel. '
       + 'Return these extra suggestions either inside each day ("restaurants" and "hotels") or as a top-level "recommendations" array. '
-      + 'Make each description rich, engaging, and highly detailed (approx. 25-45 words). Feel free to use transition arrows (e.g., A → B → C) to show a step-by-step journey flow for each time slot (Morning, Afternoon, Evening) to outline full transitions, local transport notes, and dining stops! '
-      + 'Provide coordinates when possible and include source URLs (OpenTripMap, OpenStreetMap, Wikipedia) for verification.';
+      + 'DETAILED FLOW RULE: For every time slot (morning, afternoon, and evening), you MUST write a rich, long, and detailed step-by-step sequence of events. You MUST use transition arrows (→) to connect at least 3 distinct sequential actions or steps inside the "activity" string for each slot. '
+      + 'Example activity: "Drive out to historical site → explore archaeological ruins (go early to beat the heat) → visit local history museum → rest at recommended hotel". '
+      + 'Make every single day have these detailed sequences. Provide coordinates when possible and include source URLs (OpenTripMap, OpenStreetMap, Wikipedia) for verification.';
 
     // Strong instruction to verify places using OpenTripMap and OpenStreetMap
     userPrompt += ' IMPORTANT: For every place you list, verify that it exists by checking OpenTripMap (opentripmap.com) and OpenStreetMap (nominatim.openstreetmap.org) or reliable web sources. '

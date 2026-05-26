@@ -127,22 +127,28 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text" class="form-control" placeholder="John" required>
+              <input type="text" id="first-name" class="form-control" placeholder="John" required>
             </div>
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" class="form-control" placeholder="Doe" required>
+              <input type="text" id="last-name" class="form-control" placeholder="Doe" required>
             </div>
           </div>
           
           <div class="form-group">
             <label>Email Address</label>
-            <input type="email" class="form-control" placeholder="john@example.com" required>
+            <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
           </div>
 
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input type="tel" class="form-control" placeholder="+1 (555) 000-0000" required>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="phone" class="form-control" placeholder="+1 (555) 000-0000" required>
+            </div>
+            <div class="form-group">
+              <label>Travel Date</label>
+              <input type="date" id="travel-date" class="form-control" required>
+            </div>
           </div>
 
           <h3 style="margin-top: 3rem; margin-bottom: 2rem;"><i class="fa-solid fa-credit-card" style="color:var(--ocean); margin-right: 0.75rem;"></i>Payment Details</h3>
@@ -150,7 +156,7 @@
           <div class="form-group">
             <label>Card Number</label>
             <div style="position: relative;">
-              <input type="text" class="form-control" placeholder="0000 0000 0000 0000" required>
+              <input type="text" id="card-number" class="form-control" placeholder="0000 0000 0000 0000" required>
               <i class="fa-brands fa-cc-visa" style="position: absolute; right: 1.5rem; top: 1.25rem; font-size: 1.5rem; color: #1a1f71;"></i>
             </div>
           </div>
@@ -158,11 +164,11 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
             <div class="form-group">
               <label>Expiry Date</label>
-              <input type="text" class="form-control" placeholder="MM/YY" required>
+              <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY" required>
             </div>
             <div class="form-group">
               <label>CVV</label>
-              <input type="password" class="form-control" placeholder="***" required>
+              <input type="password" id="cvv" class="form-control" placeholder="***" required>
             </div>
           </div>
 
@@ -174,26 +180,26 @@
 
       <!-- SUMMARY RIGHT -->
       <div class="summary-card reveal">
-        <img src="assests/paris.jpg" alt="Selected Package" class="package-summary-img">
-        <h3 style="margin-bottom: 0.5rem;">Paris, France</h3>
-        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem;"><i class="fa-solid fa-calendar-days"></i> 5 Days, 4 Nights</p>
+        <img src="assests/paris.jpg" alt="Selected Package" id="summary-img" class="package-summary-img">
+        <h3 style="margin-bottom: 0.5rem;" id="summary-title">Paris, France</h3>
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem;" id="summary-duration"><i class="fa-solid fa-calendar-days"></i> 5 Days, 4 Nights</p>
         
         <div class="price-row">
-          <span>Base Price (1 person)</span>
-          <span>$899.00</span>
+          <span>Base Price</span>
+          <span id="summary-base-price">$899.00</span>
         </div>
         <div class="price-row">
           <span>Service Fee</span>
-          <span>$45.00</span>
+          <span id="summary-fee">$45.00</span>
         </div>
         <div class="price-row">
           <span>Tax</span>
-          <span>$22.00</span>
+          <span id="summary-tax">$22.00</span>
         </div>
         
         <div class="price-row price-total">
           <span>Total Amount</span>
-          <span>$966.00</span>
+          <span id="summary-total">$966.00</span>
         </div>
 
         <div style="margin-top: 2rem; padding: 1.25rem; background: rgba(14, 165, 233, 0.05); border-radius: 1rem; border-left: 4px solid var(--ocean);">
@@ -207,7 +213,6 @@
 </section>
 
 <footer class="footer">
-  <!-- (Reuse existing footer content) -->
   <div class="container text-center">
     <p>&copy; <span data-year></span> TravelAI. All rights reserved.</p>
   </div>
@@ -215,10 +220,109 @@
 
 <script src="js/main.js"></script>
 <script>
-  document.getElementById('booking-form').addEventListener('submit', function(e) {
+  // Global booking variables
+  let currentDestination = "Paris, France";
+  let currentDuration = "5 Days, 4 Nights";
+  let currentBasePrice = 899.00;
+  let currentTotal = 966.00;
+
+  // Set minimum travel date to tomorrow
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+  const dateInput = document.getElementById('travel-date');
+  if (dateInput) {
+    dateInput.min = tomorrowStr;
+    dateInput.value = tomorrowStr;
+  }
+
+  // Parse URL Parameters
+  function parseParams() {
+    const params = new URLSearchParams(window.location.search);
+    const pkg = params.get('package');
+    const priceStr = params.get('price');
+    const dur = params.get('duration');
+    const img = params.get('img');
+
+    if (pkg) {
+      currentDestination = pkg;
+      document.getElementById('summary-title').textContent = pkg;
+    }
+    if (dur) {
+      currentDuration = dur;
+      document.getElementById('summary-duration').innerHTML = `<i class="fa-solid fa-calendar-days"></i> ${dur}`;
+    }
+    if (img) {
+      document.getElementById('summary-img').src = img;
+    }
+    if (priceStr) {
+      const basePrice = parseFloat(priceStr.replace(/[^0-9.]/g, ''));
+      if (!isNaN(basePrice)) {
+        currentBasePrice = basePrice;
+        
+        // Dynamic fee and tax calculation
+        const serviceFee = Math.round(basePrice * 0.05 * 100) / 100; // 5%
+        const tax = Math.round(basePrice * 0.025 * 100) / 100; // 2.5%
+        currentTotal = basePrice + serviceFee + tax;
+
+        document.getElementById('summary-base-price').textContent = `$${basePrice.toFixed(2)}`;
+        document.getElementById('summary-fee').textContent = `$${serviceFee.toFixed(2)}`;
+        document.getElementById('summary-tax').textContent = `$${tax.toFixed(2)}`;
+        document.getElementById('summary-total').textContent = `$${currentTotal.toFixed(2)}`;
+      }
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', parseParams);
+
+  // Submit form to SQLite backend
+  document.getElementById('booking-form').addEventListener('submit', async function(e) {
     e.preventDefault();
-    alert('Thank you for booking with TravelAI! Your confirmation has been sent to your email.');
-    window.location.href = 'index.html';
+    
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Payment...';
+
+    // Mask card number for security (save only last 4 digits)
+    const rawCard = document.getElementById('card-number').value.replace(/\s+/g, '');
+    const maskedCard = rawCard.length >= 4 
+      ? `**** **** **** ${rawCard.slice(-4)}`
+      : '**** **** **** 1111';
+
+    const payload = {
+      first_name: document.getElementById('first-name').value.trim(),
+      last_name: document.getElementById('last-name').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      destination: currentDestination,
+      duration: currentDuration,
+      total_price: currentTotal,
+      card_number: maskedCard,
+      travel_date: document.getElementById('travel-date').value
+    };
+
+    try {
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create booking');
+      }
+
+      const data = await response.json();
+      alert(`Booking Successful! 🎉\n\nThank you, ${payload.first_name}! Your trip to ${payload.destination} has been booked.\nYour Booking Reference is: ${data.booking_ref}`);
+      window.location.href = 'index.html';
+    } catch (err) {
+      console.error(err);
+      alert('Payment processing failed or server error. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Confirm & Pay Now';
+    }
   });
 </script>
 </body>

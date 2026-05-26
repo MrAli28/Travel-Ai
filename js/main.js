@@ -149,6 +149,11 @@
         var attractions = (btn.getAttribute('data-attractions') || '').split(',');
         var itinerary = (btn.getAttribute('data-itinerary') || '').split('|');
 
+        // Calculate duration dynamically from itinerary length
+        var days = itinerary.length;
+        var nights = days - 1;
+        var duration = days > 1 ? (days + " Days, " + nights + " Nights") : "5 Days, 4 Nights";
+
         if (modalImg) modalImg.src = img;
         if (modalTitle) modalTitle.textContent = title;
         if (modalDesc) modalDesc.textContent = desc;
@@ -181,6 +186,15 @@
         if (modalReviews) {
           modalReviews.innerHTML = '<div class="review-card"><div class="review-top"><span class="review-user">John Doe</span><span class="review-rating">★★★★★</span></div><p>Amazing experience! The guide was very helpful.</p></div>' +
                                    '<div class="review-card"><div class="review-top"><span class="review-user">Sarah W.</span><span class="review-rating">★★★★☆</span></div><p>Beautiful scenery, but a bit crowded during weekends.</p></div>';
+        }
+
+        // Dynamically update the Book Now button link with query parameters
+        var bookBtn = destModal.querySelector('.modal-actions a, a[href*="booking.html"]');
+        if (bookBtn) {
+          bookBtn.href = 'booking.html?package=' + encodeURIComponent(title) +
+                         '&price=' + encodeURIComponent(price) +
+                         '&duration=' + encodeURIComponent(duration) +
+                         '&img=' + encodeURIComponent(img);
         }
 
         // Reset to first tab
