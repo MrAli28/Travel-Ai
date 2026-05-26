@@ -402,16 +402,6 @@
   <!-- METRICS SECTION -->
   <section class="metrics-grid">
     <div class="metric-card">
-      <div class="metric-icon blue">
-        <i class="fa-solid fa-hand-holding-dollar"></i>
-      </div>
-      <div class="metric-details">
-        <span class="metric-value" id="metric-revenue">$0.00</span>
-        <span class="metric-label">Total Revenue</span>
-      </div>
-    </div>
-    
-    <div class="metric-card">
       <div class="metric-icon green">
         <i class="fa-solid fa-circle-check"></i>
       </div>
@@ -533,7 +523,6 @@
       }
     });
 
-    document.getElementById('metric-revenue').textContent = `$${totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     document.getElementById('metric-confirmed').textContent = confirmedCount;
     document.getElementById('metric-pending').textContent = pendingCount;
     document.getElementById('metric-cancelled').textContent = cancelledCount;
