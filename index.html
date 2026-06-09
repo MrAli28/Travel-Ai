@@ -66,6 +66,24 @@
     <div class="travel-badge"><span class="badge-dot"></span> AI-Powered Travel Planning</div>
     <h1 class="hero-title">Discover Your Next <span class="text-gradient-ocean">Adventure</span></h1>
     <p class="hero-subtitle">Let our AI plan your perfect trip. Explore breathtaking destinations, get personalized recommendations, and create unforgettable memories.</p>
+    <div class="searchcard">
+      <div class="searchcard-grid">
+        <div class="search-input">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <input type="text" placeholder="Where to?" aria-label="Destination" />
+        </div>
+        <div class="search-input">
+          <input type="date" aria-label="Travel date" />
+        </div>
+        <div class="search-input">
+          <input type="number" placeholder="Travelers" min="1" value="2" aria-label="Number of travelers" />
+        </div>
+        <button class="search-btn" id="hero-search-btn" onclick="heroSearch()" aria-label="Plan trip with AI">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          Plan with AI
+        </button>
+      </div>
+    </div>
     <div class="hero-stats">
       <div class="stat"><p class="stat-value text-gradient-ocean">500+</p><p class="stat-label">Destinations</p></div>
       <div class="stat"><p class="stat-value text-gradient-ocean">50K+</p><p class="stat-label">Happy Travelers</p></div>
@@ -281,6 +299,16 @@
 
 <script src="js/config.js"></script>
 <script src="js/main.js"></script>
-
+<script>
+function heroSearch() {
+  var dest = document.querySelector('.searchcard input[type="text"]');
+  var city = dest ? dest.value.trim() : '';
+  if (city) {
+    window.location.href = 'itinerary.html?city=' + encodeURIComponent(city);
+  } else {
+    window.location.href = 'itinerary.html';
+  }
+}
+</script>
 </body>
 </html>

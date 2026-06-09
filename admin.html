@@ -363,6 +363,82 @@
         align-items: stretch;
       }
     }
+
+    .admin-auth-screen {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem 5rem;
+    }
+
+    .admin-auth-card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--gradient-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--admin-border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+
+    .admin-auth-card h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .admin-auth-card p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .admin-auth-form {
+      display: grid;
+      gap: 1rem;
+      text-align: left;
+    }
+
+    .admin-auth-form label {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.35rem;
+      display: inline-block;
+    }
+
+    .admin-auth-form input {
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.8);
+    }
+
+    .admin-auth-form input:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 4px rgba(14,165,233,0.1);
+      background: #fff;
+    }
+
+    .admin-auth-error {
+      display: none;
+      margin-top: 0.75rem;
+      color: #b91c1c;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      border-radius: 0.85rem;
+      padding: 0.8rem 1rem;
+      font-size: 0.92rem;
+      text-align: left;
+    }
+
+    .admin-shell[hidden] {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -389,6 +465,24 @@
     </div>
   </div>
 </nav>
+
+<section class="admin-auth-screen" id="admin-auth-screen">
+  <div class="admin-auth-card">
+    <span class="travel-badge">Admin Access</span>
+    <h1>Admin Login</h1>
+    <p>Enter the admin password to manage bookings and dashboard data.</p>
+    <form class="admin-auth-form" id="admin-login-form">
+      <div>
+        <label for="admin-password">Password</label>
+        <input id="admin-password" name="admin-password" type="password" placeholder="Enter password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn-gradient full-width">Unlock Dashboard</button>
+      <div class="admin-auth-error" id="admin-auth-error">Invalid password. Please try again.</div>
+    </form>
+  </div>
+</section>
+
+<div id="admin-shell" class="admin-shell" hidden>
 
 <header class="admin-hero">
   <div class="container">
@@ -460,7 +554,6 @@
           <th>Destination / Trip</th>
           <th>Travel Date</th>
           <th>Price Paid</th>
-          <th>Masked Card</th>
           <th>Status</th>
           <th style="width: 100px;">Actions</th>
         </tr>
@@ -477,13 +570,44 @@
   </section>
 </main>
 
+<!-- FOOTER -->
 <footer class="footer">
-  <div class="container text-center">
-    <p>&copy; <span data-year></span> TravelAI. All rights reserved.</p>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><div class="brand-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div><span class="brand-text">TravelAI</span></a>
+        <p>Your AI-powered travel companion. Discover amazing destinations and plan your perfect trip with intelligent recommendations.</p>
+        <div class="footer-social">
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.56-2.005.97-3.14 1.2a4.992 4.992 0 00-8.51 4.555c0 .39.045.765.127 1.124C7.728 9.215 4.1 7.33 1.671 4.149a4.968 4.968 0 00-.675 2.507c0 1.728.88 3.252 2.213 4.15a4.94 4.94 0 01-2.253-.622v.06a4.993 4.993 0 004 4.897 4.93 4.93 0 01-2.244.084 4.996 4.996 0 004.652 3.465 10.029 10.029 0 01-6.186 2.131c-.398 0-.79-.023-1.175-.069a14.16 14.16 0 007.65 2.243c9.18 0 14.199-7.603 14.199-14.199 0-.216-.005-.432-.015-.647A10.14 10.14 0 0024 4.57z"/></svg></a>
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></a>
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></a>
+        </div>
+      </div>
+      <div><h4>Quick Links</h4><ul><li><a href="destinations.html">Destinations</a></li><li><a href="packages.html">Packages</a></li><li><a href="features.html">Features</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Support</h4><ul>
+          <li><a href="help.html">Help Center</a></li>
+          <li><a href="safety.html">Safety Information</a></li>
+          <li><a href="cancellation.html">Cancellation Options</a></li>
+          <li><a href="advisory.html">Travel Advisory</a></li></ul></div>
+      <div><h4>Contact Us</h4><ul class="footer-contact"><li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>123 Travel Street, Adventure City</span></li><li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/><span>+1 (555) 123-4567</span></li><li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>hello@travelai.com</span></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span data-year></span> TravelAI. All rights reserved.</p>
+      <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div>
+    </div>
   </div>
 </footer>
 
+</div>
+
 <script>
+  const ADMIN_PASSWORD = 'MyNameisTehreem';
+  const AUTH_KEY = 'travelai_admin_authed';
+  // API base for backend (API server runs separately on port 5000)
+  const API_BASE = 'http://127.0.0.1:5000';
+
   let bookingsData = [];
   let activeFilter = 'All';
 
@@ -491,10 +615,55 @@
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+  const adminAuthScreen = document.getElementById('admin-auth-screen');
+  const adminShell = document.getElementById('admin-shell');
+  const loginForm = document.getElementById('admin-login-form');
+  const authError = document.getElementById('admin-auth-error');
+
+  function showAdminShell() {
+    if (adminAuthScreen) adminAuthScreen.style.display = 'none';
+    if (adminShell) adminShell.hidden = false;
+  }
+
+  function showAdminLogin() {
+    if (adminAuthScreen) adminAuthScreen.style.display = 'flex';
+    if (adminShell) adminShell.hidden = true;
+  }
+
+  if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+    showAdminShell();
+  } else {
+    showAdminLogin();
+  }
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const passwordInput = document.getElementById('admin-password');
+      const entered = passwordInput ? passwordInput.value.trim() : '';
+
+      if (entered === ADMIN_PASSWORD) {
+        sessionStorage.setItem(AUTH_KEY, 'true');
+        if (authError) authError.style.display = 'none';
+        showAdminShell();
+        fetchBookings();
+      } else {
+        if (authError) authError.style.display = 'block';
+      }
+    });
+  }
+
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sessionStorage.getItem(AUTH_KEY) === 'true') {
+      sessionStorage.removeItem(AUTH_KEY);
+      showAdminLogin();
+    }
+  });
+
   // Fetch bookings on load
   async function fetchBookings() {
     try {
-      const res = await fetch('/api/bookings');
+      const res = await fetch(`${API_BASE}/api/bookings`);
       if (!res.ok) throw new Error('Failed to load bookings');
       bookingsData = await res.json();
       renderBookings();
@@ -625,8 +794,7 @@
           </div>
         </td>
         <td><i class="fa-solid fa-calendar-day" style="color:var(--muted); margin-right: 0.35rem;"></i>${displayDate}</td>
-        <td style="font-weight:700; color:var(--dark);">$${booking.total_price.toFixed(2)}</td>
-        <td style="color:var(--muted); font-size:0.85rem;"><i class="fa-solid fa-credit-card" style="margin-right:0.35rem;"></i>${booking.card_number}</td>
+        <td style="font-weight:700; color:var(--dark);">$${(booking.total_price || 0).toFixed(2)}</td>
         <td>
           <span class="status-badge ${booking.status.toLowerCase()}">
             <i class="fa-solid ${booking.status === 'Confirmed' ? 'fa-circle-check' : booking.status === 'Pending' ? 'fa-hourglass-half' : 'fa-circle-xmark'}"></i>
@@ -645,7 +813,7 @@
   // Update booking status via API
   async function updateStatus(id, newStatus) {
     try {
-      const response = await fetch(`/api/bookings/${id}`, {
+      const response = await fetch(`${API_BASE}/api/bookings/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -676,7 +844,7 @@
       const row = document.getElementById(`row-${id}`);
       if (row) row.classList.add('fade-out');
 
-      const response = await fetch(`/api/bookings/${id}`, {
+      const response = await fetch(`${API_BASE}/api/bookings/${id}`, {
         method: 'DELETE'
       });
 
@@ -715,7 +883,7 @@
     this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Seeding database...';
     
     try {
-      const response = await fetch('/api/bookings/seed', {
+      const response = await fetch(`${API_BASE}/api/bookings/seed`, {
         method: 'POST'
       });
       if (!response.ok) throw new Error('Failed to seed');

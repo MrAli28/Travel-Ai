@@ -80,6 +80,17 @@
         grid-template-columns: 1fr;
       }
     }
+    /* Confirmation overlay */
+    .confirm-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;z-index:1200;padding:1rem;
+    }
+    .confirm-card{background:#fff;border-radius:1rem;max-width:720px;width:100%;padding:2rem;box-shadow:0 20px 60px rgba(2,6,23,0.3);text-align:left}
+    .confirm-card h2{margin:0 0 0.5rem;font-size:1.5rem}
+    .confirm-meta{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem}
+    .confirm-meta .meta{flex:1 1 200px;background:#f8fafc;padding:0.75rem;border-radius:0.75rem}
+    .confirm-actions{display:flex;gap:0.75rem;justify-content:flex-end;margin-top:1.25rem}
+    .btn-outline{background:transparent;border:1px solid var(--border);padding:0.6rem 1rem;border-radius:0.75rem}
+    .btn-primary{background:var(--ocean);color:white;padding:0.6rem 1rem;border-radius:0.75rem;border:none}
   </style>
 </head>
 <body>
@@ -151,29 +162,8 @@
             </div>
           </div>
 
-          <h3 style="margin-top: 3rem; margin-bottom: 2rem;"><i class="fa-solid fa-credit-card" style="color:var(--ocean); margin-right: 0.75rem;"></i>Payment Details</h3>
-          
-          <div class="form-group">
-            <label>Card Number</label>
-            <div style="position: relative;">
-              <input type="text" id="card-number" class="form-control" placeholder="0000 0000 0000 0000" required>
-              <i class="fa-brands fa-cc-visa" style="position: absolute; right: 1.5rem; top: 1.25rem; font-size: 1.5rem; color: #1a1f71;"></i>
-            </div>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-            <div class="form-group">
-              <label>Expiry Date</label>
-              <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY" required>
-            </div>
-            <div class="form-group">
-              <label>CVV</label>
-              <input type="password" id="cvv" class="form-control" placeholder="***" required>
-            </div>
-          </div>
-
           <button type="submit" class="btn-gradient" style="width: 100%; margin-top: 2rem; padding: 1.25rem;">
-            Confirm & Pay Now
+            Confirm Booking
           </button>
         </form>
       </div>
@@ -281,13 +271,7 @@
     
     const submitBtn = this.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Payment...';
-
-    // Mask card number for security (save only last 4 digits)
-    const rawCard = document.getElementById('card-number').value.replace(/\s+/g, '');
-    const maskedCard = rawCard.length >= 4 
-      ? `**** **** **** ${rawCard.slice(-4)}`
-      : '**** **** **** 1111';
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
 
     const payload = {
       first_name: document.getElementById('first-name').value.trim(),
@@ -297,12 +281,11 @@
       destination: currentDestination,
       duration: currentDuration,
       total_price: currentTotal,
-      card_number: maskedCard,
       travel_date: document.getElementById('travel-date').value
     };
 
     try {
-      const response = await fetch('/api/bookings', {
+      const response = await fetch('http://127.0.0.1:5000/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -315,8 +298,7 @@
       }
 
       const data = await response.json();
-      alert(`Booking Successful! 🎉\n\nThank you, ${payload.first_name}! Your trip to ${payload.destination} has been booked.\nYour Booking Reference is: ${data.booking_ref}`);
-      window.location.href = 'index.html';
+      showConfirmation(data);
     } catch (err) {
       console.error(err);
       alert('Payment processing failed or server error. Please try again.');
@@ -324,6 +306,39 @@
       submitBtn.innerHTML = 'Confirm & Pay Now';
     }
   });
+
+  function showConfirmation(booking){
+    const overlay = document.createElement('div');
+    overlay.className = 'confirm-overlay';
+    const card = document.createElement('div');
+    card.className = 'confirm-card';
+    const dateObj = new Date(booking.travel_date);
+    const displayDate = isNaN(dateObj) ? booking.travel_date : dateObj.toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+    card.innerHTML = `
+      <h2>Booking Confirmed 🎉</h2>
+      <p>Thank you, <strong>${booking.first_name} ${booking.last_name}</strong>. Your booking has been received.</p>
+      <div class="confirm-meta">
+        <div class="meta"><strong>Reference</strong><div>${booking.booking_ref}</div></div>
+        <div class="meta"><strong>Destination</strong><div>${booking.destination}</div></div>
+        <div class="meta"><strong>Travel Date</strong><div>${displayDate}</div></div>
+        <div class="meta"><strong>Total Paid</strong><div>$${(booking.total_price||0).toFixed(2)}</div></div>
+      </div>
+      <div class="confirm-actions">
+        <button class="btn-outline" id="confirm-home">Back to Home</button>
+        <button class="btn-primary" id="confirm-done">View My Bookings</button>
+      </div>
+    `;
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    document.getElementById('confirm-home').addEventListener('click', ()=>{
+      window.location.href = 'index.html';
+    });
+    document.getElementById('confirm-done').addEventListener('click', ()=>{
+      // take user to homepage for now; admin view is separate
+      window.location.href = 'index.html';
+    });
+  }
 </script>
 </body>
 </html>
