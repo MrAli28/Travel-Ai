@@ -539,9 +539,7 @@
       <button class="pill-btn" data-filter="Cancelled">Cancelled</button>
     </div>
 
-    <button class="seed-btn btn-gradient" id="seed-btn">
-      <i class="fa-solid fa-database"></i> Seed Mock Data
-    </button>
+
   </section>
 
   <!-- TABLE SECTION -->
@@ -877,30 +875,6 @@
     });
   });
 
-  // Wire seeding button
-  document.getElementById('seed-btn').addEventListener('click', async function() {
-    this.disabled = true;
-    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Seeding database...';
-    
-    try {
-      const response = await fetch(`${API_BASE}/api/bookings/seed`, {
-        method: 'POST'
-      });
-      if (!response.ok) throw new Error('Failed to seed');
-      
-      const resData = await response.json();
-      alert(resData.message);
-      
-      // Reload bookings
-      await fetchBookings();
-    } catch(err) {
-      console.error(err);
-      alert('Error seeding mock data.');
-    } finally {
-      this.disabled = false;
-      this.innerHTML = '<i class="fa-solid fa-database"></i> Seed Mock Data';
-    }
-  });
 
   // Initial Fetch on Load
   window.addEventListener('DOMContentLoaded', fetchBookings);
